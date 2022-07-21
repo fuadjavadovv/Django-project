@@ -1,0 +1,52 @@
+{%load static%}
+<header class="top-navbar">
+    <nav style="background-color: white; margin: 2px;" class="navbar navbar-expand-lg navbar-light right ">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'index'%}">
+                <img style="height: 50px; width: 100px;" src="{% static 'images/lwu.jfif ' %}" alt="" />
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbars-host"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbars-host">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item  {% if '/' == request.path %} active {% endif %}"><a class="nav-link" 
+                            href="{% url 'index'%}">Ana Səhifə</a></li>
+                    <li class="nav-item {% if '/about/' == request.path %} active {% endif %}"><a class="nav-link" 
+                            href="{% url 'about'%}">Haqqımızda</a></li>
+                    <li class="nav-item {% if '/courses/' == request.path %} active {% endif %}"><a class="nav-link" 
+                            href="{% url 'courses'%}">Kurslar</a></li>
+                    <li class="nav-item {% if '/teachers/' == request.path %} active {% endif %}"><a class="nav-link" 
+                            href="{% url 'teachers'%}">Müəllimlər</a></li>
+                    <li class="nav-item {% if '/contact/' == request.path %} active {% endif %}"><a class="nav-link" 
+                            href="{% url 'contact'%}">Əlaqə</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    {% if user.is_authenticated %}
+                    <li><a class="hover-btn-new log orange mr-2" href="{% url 'dashboard' %}"><span>{{user.username}}</span></a></li>
+                    <li><a class="hover-btn-new log orange mr-2" href="javascript:{document.getElementById('logout').submit()}"><span><i
+                        class="fa fa-sign-out"></i></span></a>
+                    
+                    
+                      <form action="{% url 'logout' %}" method="POST" id="logout" >
+                          {% csrf_token %}
+                          <input type="hidden">
+                      </form>
+                    </li>
+                      
+                    {% else %}
+                    <li><a class="hover-btn-new log orange mr-2" href="{% url 'login' %}"><span><i
+                                    class="fa fa-sign-in"></i></span></a></li>
+                    <li><a class="hover-btn-new log orange" href="{% url 'register' %}"><span><i
+                                    class="fa fa-user-plus"></i></span></a></li>
+
+
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>

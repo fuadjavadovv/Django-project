@@ -1,0 +1,63 @@
+{% extends 'partials/_base.html' %}
+{% load static %}
+
+{% block content %}
+	
+<video  src="{% static 'images/lwc1.mp4 ' %}" muted loop autoplay>  </video>
+	
+	<div id="teachers"  class="section wb  col-lg-12 blog-post-single">
+        <div class="container">
+            <div class="row">
+				{% for teacher in object_list %}
+				<div class="image-area1">
+					<div class="img-wrapper1">
+						<img  src="{{teacher.image.url}}" alt="Atul Prajapati">
+						<h2 class="title"><a href="{% url 'teacher_detail' teacher.pk %}">{{teacher.name}}</a></h2>
+						<ul>
+							<li><a href="{{ teacher.facebook }}"><i class="fa fa-facebook"></i></a></li>
+							<li><a href="{{ teacher.twitter }}"><i class="fa fa-twitter"></i></a></li>
+							<li><a href="{{ teacher.linkedin }}"><i class="fa fa-linkedin"></i></a></li>
+						</ul>
+					</div>
+				</div>
+				{% endfor %}
+
+
+            </div><!-- end row -->
+
+
+				
+				<div class="pagination">
+					<span class="step-links">
+						{% if page_obj.has_previous %}
+							<a id="next2" href="?page=1"></a>
+							<a id="previous2" href="?page={{ page_obj.previous_page_number }}">&#8249;</a>
+						{% endif %}
+				
+						<span class="current text-center">
+							
+						</span>
+				
+						{% if page_obj.has_next %}
+					
+							<a id="next2" href="?page={{ page_obj.next_page_number }}">&#8250;</a>
+							
+						{% endif %}
+						<span class="current">
+							 {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}.
+						</span>
+					</span>
+				</div>
+				
+		
+
+        </div><!-- end container -->
+    </div><!-- end section -->	
+{% endblock %}
+
+
+
+
+
+
+

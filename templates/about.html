@@ -1,0 +1,157 @@
+{% extends 'partials/_base.html' %}
+{%load static%}
+{% block content %}
+<video  src="{% static 'images/lwc1.mp4 ' %}" muted loop autoplay>  </video>
+	
+    <div id="overviews" class="section lb">
+        <div class="container">
+            <div class="section-title row text-center">
+                <div class="col-md-8 offset-md-2">
+                    <h3>Biz kimik?</h3>
+                    <p class="lead"><span>
+                         Sayt tələbələrin bilik və bacarıqlarını inkişafı üçün yaradılmışdır.</p>
+                </div>
+            </div><!-- end title -->
+        
+            <div class="row align-items-center">
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                    <div class="message-box">
+                        <h4 style="color: #03787F;">LWU-Learning With Us</h4>
+                        <h2>Təlimçilərimizlə tanış olun</h2>
+                        
+                        <p>Təlimçilərimiz tədris etdikləri istiqamətlər üzrə böyük təcrübələrə və beynəlxalq sertifikatlara malikdirlər</p>
+
+                        <p> Missiyamız kəmiyyətə deyil, keyfiyyətə üstün verərək qısa zamanda peşəkar tələbə yetişdirməkdir. Bu LWU Academy olaraq bizi fərqləndirən xüsusiyyətimiz və dəyərimizdir!
+
+                            Vizyonumuz komanda üzvü və məzunu olmaqdan qurur duyulan təhsil mərkəzi olmaqdır. Qlobal bazarda rəqabət apara biləcək kadrlar hazırlamaqdır.</p>
+
+                        <a  href="{% url 'teachers'%}" class="hover-btn-new orange"><span>Keçid et</span></a>
+                    </div><!-- end messagebox -->
+                </div><!-- end col -->
+				
+				<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                    <div class="post-media wow fadeIn">
+                        <img style="height: 300px; width: 500px;" src="{% static 'images/lwu.jfif' %}" alt="" class="img-fluid img-rounded">
+                    </div><!-- end media -->
+                </div><!-- end col -->
+			</div>
+			<div class="row align-items-center">
+				<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                    <div class="post-media wow fadeIn">
+                        <img style="height: 300px; width: 500px;" src="{% static 'images/distant.jpg' %}" alt="" class="img-fluid img-rounded">
+                    </div><!-- end media -->
+                </div><!-- end col -->
+				
+				<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                    <div class="message-box">
+                        <h2>DİSTANT TƏLİMLƏRİMİZ</h2>
+                        <p>Gələcək, bu gündən ona hazırlananlara aiddir.
+                            - Malkolm X</p>
+
+                        <p>Distant formatda ixtisasiniza uyğun kurslarımız var.
+
+                            Sizi uğurlu gələcəyə hazırlayır. Tədris prosesinin mütəxəssislər tərəfindən aparılması
+
+                            Effektiv təlim metodikası.Sizdə bizə qoşularaq ixtisasınızda yeni biliklər əldə edə bilərsiniz</p>
+
+                        <a href="{% url 'contact'%}" class="hover-btn-new orange"><span>Əlaqə</span></a>
+                    </div><!-- end messagebox -->
+                </div><!-- end col -->
+                
+				
+            </div><!-- end row -->
+         
+        </div><!-- end container -->
+    </div><!-- end section -->
+    <div id="overviews" class="section wb">
+        <div class="container">
+            <div class="row"> 
+                <div class="col-lg-11 blog-post-single">
+                    <div class="row"> 
+    {% for course in courses  %}
+    
+    <div class="col-lg-6 col-md-6 col-6 mb-5">
+        <div class="course-item">
+            <div class="image-blog">
+                <img style="height: 300px;" src="{{ course.image.url }}" alt="" class="img-fluid">
+            </div>
+            <div class="course-br"> 
+                <div class="course-title"> 
+                    <h2><a href="{% url 'course_detail' course.category.slug course.id %}" title="">{{ course.name }}</a></h2>
+                </div>
+                <div style="height: 100px;" class="course-desc">  
+                    <p>{{course.description | truncatechars:100}}</p>
+                </div>
+                <div class="course-rating">
+                    4.5
+                    <i class="fa fa-star"></i>	
+                    <i class="fa fa-star"></i>	
+                    <i class="fa fa-star"></i>	
+                    <i class="fa fa-star"></i>	
+                    <i class="fa fa-star-half"></i>								
+                </div>
+            </div>
+            <div class="course-meta-bot">
+                
+                <ul>
+                    <li><i class="fa fa-calendar" aria-hidden="true"></i> {{course.date|date:"d M Y" }}</li>
+            
+                    <li><i class="fa fa-book" aria-hidden="true"></i>{{course.teacher}}</li>
+                    <li><i class="fa fa-book" aria-hidden="true"></i>{{course.hit}}</li>
+            
+                     
+                </ul>
+            </div>
+        </div>
+    </div><!-- end col -->
+
+			{% endfor %}
+        </div><!-- end row -->
+        </div>
+       </div>				
+    </div><!-- end col -->
+
+	
+	<div class="hmv-box">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-4 col-md-6 col-12">
+					<div class="inner-hmv">
+						<div class="icon-box-hmv"><i class="fa fa-newspaper-o" aria-hidden="true"></i></div>
+						<h3>
+                            SERTİFİKAT</h3>
+						
+						<p>LWU Academy bütün təlim və bootcamp iştirakçılarını sertifikatla təmin edir.
+                            Bu sertifikatlar bir çox partnyorlarımız tərəfindən (banklar, qlobal layihələr, texnologiya şirkətləri) təsdiqlənməkdədir.</p>
+					</div>
+				</div>
+				<div class="col-lg-4 col-md-6 col-12">
+					<div class="inner-hmv">
+						<div class="icon-box-hmv"><i class="fa fa-desktop" aria-hidden="true"></i></div>
+						<h3>REAL TƏCRÜBƏ</h3>
+						
+						<p>Tədris zamanı tələbələr real layihələrdə yaxından iştirak etmək imkanı əldə edirlər.
+                            Full Stack Python kodlaşdırma kursunda tədris 30 faiz nəzəriyyəyə, 70 faiz təcrübəyə əsaslanır.</p>
+					</div>
+				</div>
+				<div class="col-lg-4 col-md-6 col-12">
+					<div class="inner-hmv">
+						<div class="icon-box-hmv"><i class="fa fa-question-circle" aria-hidden="true"></i></div>
+						<h3>Niyə LWU</h3>
+						
+						<p>Seçdiyiniz tədrisə tamamilə fərqli sahədən gələ və ya sıfırdan başlaya bilərsiniz.Təcrübəli müəllimlər sayəsində gələcəyinizi parlaqlaşdırın.
+
+
+                        </p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+    
+
+    
+
+ {% endblock %}  
+ 

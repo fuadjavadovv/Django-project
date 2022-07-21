@@ -1,0 +1,214 @@
+{% extends 'partials/_base.html' %}
+{%load static%}
+{% block content %}
+
+<video src="{% static 'images/lwc1.mp4 ' %}" muted loop autoplay> </video>
+
+
+
+
+
+<div id="overviews" class="section wb">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-9 blog-post-single">
+				<div class="blog-item">
+					<div class="image-blog">
+						<img style="height: 500px;" src="{{course.image.url}}" alt="" class="img-fluid">
+					</div>
+					<div class="post-content">
+						<div class="post-date">
+							{% if user.is_authenticated %}
+
+							{% if course in enrolled_courses %}
+							<button type="submit" class="btn btn-outline-danger rounded-0" data-toggle="modal"
+								data-target="#releaseModal">
+								<span>Kursu qaytar</span>
+							</button>
+							{% else %}
+							<button type="submit" class="btn btn-outline-success rounded-0" data-toggle="modal"
+								data-target="#enrollModal">
+								<span>Kursu al</span>
+							</button>
+							{% endif %}
+							{% endif %}
+						</div>
+						<div class="meta-info-blog">
+							<span><i class="fa fa-calendar"></i> <a href="#">{{course.date|date:"d M Y" }}</a> </span>
+
+							<span><i class="fa fa-comments"></i>{{comment.commentss}}</span>
+						</div>
+						<div class="blog-title">
+							<h2><a href="#" title="">{{course.name}}</a></h2>
+						</div>
+						<div class="blog-desc">
+
+
+
+						</div>
+					</div>
+
+				</div>
+
+
+
+			</div><!-- end col -->
+
+		</div>
+	</div><!-- end row -->
+</div><!-- end container -->
+</div><!-- end section -->
+<div style="margin: 20px;     ">
+	<blockquote class="default">
+		{{course.description }}
+	</blockquote>
+</div>
+<div class="modal fade" id="enrollModal" tabindex="-1" role="dialog" aria-labelledby="enrollModalLabel"
+	aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h2 class="modal-title" id="enrollModalLabel">Kursu qeyd edin</h2>
+				<button type="button" class="close" data-dismiss="modal">
+					<span>&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<p>Aşağıdakı kursa yazılacaqsınız:</p>
+				<h1>{{course.name}}</h1>
+			</div>
+			<div class="modal-footer">
+				<form action="{% url 'enroll_the_course' %}" method="POST">
+					{% csrf_token %}
+					<input type="hidden" name="user_id" value="{{user.id}}">
+					<input type="hidden" name="course_id" value="{{course.id}}">
+					<input type="submit" value="Hə" class="btn btn-success">
+				</form>
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">
+					Yox
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="releaseModal" tabindex="-1" role="dialog" aria-labelledby="releaseModalLabel"
+	aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h2 class="modal-title" id="releaseModalLabel">Kursu qeyd edin</h2>
+				<button type="button" class="close" data-dismiss="modal">
+					<span>&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<p>Aşağıdakı kursa geri qaytaracaqsınız:</p>
+				<h1>{{course.name}}</h1>
+			</div>
+			<div class="modal-footer">
+				<form action="{% url 'release_the_course' %}" method="POST">
+					{% csrf_token %}
+					<input type="hidden" name="user_id" value="{{user.id}}">
+					<input type="hidden" name="course_id" value="{{course.id}}">
+					<input type="submit" value="Hə" class="btn btn-danger">
+				</form>
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">
+					Yox
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="blog-comments">
+	<h4 style="margin: 34px;font-family: 'Alfa Slab One', cursive;
+	font-family: 'Anton', sans-serif; font-size: 25px;">Rəylər</h4>
+	<div class="commentsf" id="comment-blog">
+		{% if comments %}
+		<ul class="comment-list">
+			{% for comment in comments%}
+			{% if forloop.counter0 < 2 %} <li class="comment">
+
+				<div class="comment-container">
+					<h5 class="comment-author"><a href="#">{{comment.comment_user}}</a></h5>
+					<div class="comment-meta">
+						<a href="#" class="comment-date link-style1">{{comment.comment_date}}</a>
+
+					</div>
+					<div class="comment-body">
+						<p>{{comment.comment_description}}</p>
+					</div>
+				</div>
+				</li>
+				{% else %}
+				<li class="comment hidden">
+
+					<div class="comment-container">
+						<h5 class="comment-author"><a href="#">{{comment.comment_user}}</a></h5>
+						<div class="comment-meta">
+							<a href="#" class="comment-date link-style1">{{comment.comment_date}}</a>
+
+						</div>
+						<div class="comment-body">
+							<p>{{comment.comment_description}}</p>
+						</div>
+					</div>
+				</li>
+
+				{% endif %}
+				{% endfor %}
+				{% endif %}
+		</ul>
+	</div>
+
+
+</div>
+
+{% if comments != 0 %} <h1 id="test" class="read-more-btn">Daha cox gorset</h1>	{% endif %}
+
+
+
+<!-- <h1 class="hidden12">Daha az gorset</h1> -->
+
+<div style="margin: 34px;" class="comments-form">
+	<h4 >Rəy əlavə et</h4>
+	<div class="comment-form-main">
+		<form method="POST" action="{% url 'comment' course.category.slug course.id %}">
+			{% csrf_token %}
+			<div class="row">
+				<div class="col-md-4">
+
+					<div class="form-group">
+						<input class="form-control" name=" comment_user" placeholder="Name" id="commenter-name"
+							type="text">
+					</div>
+				</div>
+
+			</div>
+			<div class="col-md-12">
+				<div class="form-group">
+					<textarea class="form-control" name="comment_description" placeholder="Message"
+						id="commenter-message" cols="30" rows="2"></textarea>
+				</div>
+			</div>
+			<div class="col-md-12 post-btn">
+				<button class="hover-btn-new orange"><span>Əlavə et</span></button>
+			</div>
+	</div>
+	</form>
+</div>
+</div>
+<div style="margin: 25px;" class="blog-author">
+	<div class="author-bio">
+		<h3 class="author_name"><a href="{% url 'teacher_detail' course.teacher.pk %}">{{course.teacher.name}}</a></h3>
+		<h5>{{course.teacher.title}}</h5>
+		<p class="author_det">
+			{{course.teacher.description}}
+		</p>
+	</div>
+	<div class="author-desc">
+		<img src="{{course.teacher.image.url}}" alt="about author">
+
+
+	</div>
+</div>
+{% endblock %}

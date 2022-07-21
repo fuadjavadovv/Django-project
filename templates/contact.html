@@ -1,0 +1,61 @@
+{% extends 'partials/_base.html' %}
+{%load static%}
+{% block content %}
+    <!-- <div style="height: 300px;"> -->
+
+	<video  src="{% static 'images/lwc1.mp4 ' %}" muted loop autoplay>  </video>
+
+
+
+<div id="contact" class="section wb">
+	<div class="container">
+		<div class="section-title text-center">
+			<h3>SİZ<strong>Ə</strong> NEC<strong>Ə</strong> YARDIMÇI OLA BİL<strong>Ə</strong>RİK?</h3>
+			<p class="lead">Əlaqə formunu doldursanız biz sizinlə tez bir vaxtda əlaqə saxlayacayıq <br>Əlaqə saxlanıldıqdan sonra biz sizə,sizə uyğun olan kursu seçmeyə kömək edəcəyik</p>
+		</div><!-- end title -->
+
+		<div class="row">
+			<div class=" offset-xl-2 col-xl-8 col-md-12 col-sm-12">
+				{% if messages %}
+                
+				{% for message in messages %}
+				<div class="alert alert-{{message.tags}}">
+
+					{{message}}
+				</div>
+				
+				{% endfor %}
+
+				{% endif %}
+				<div class="contact_form mb-5">
+					<div id="message"></div>
+					<form action="" method="POST">
+						{% csrf_token %}
+						<div class="row row-fluid">
+							<div class="col-lg-6 col-md-6 col-sm-6">
+								{{form.first_name}}
+
+							</div>
+							<div class="col-lg-6 col-md-6 col-sm-6">
+								{{form.last_name}}
+							</div>
+							<div class="col-lg-6 col-md-6 col-sm-6">
+								{{form.email}}
+							</div>
+							<div class="col-lg-6 col-md-6 col-sm-6">
+								{{form.phone}}
+							</div>
+							<div class="col-lg-12 col-md-12 col-sm-12">
+								{{form.message}}
+							</div>
+						<button class="bn632-hover bn26">Göndər</button>
+						</div>
+					</form>
+				</div>
+			</div><!-- end col -->
+
+		</div><!-- end row -->
+	</div><!-- end container -->
+</div><!-- end section -->
+
+{% endblock %}
